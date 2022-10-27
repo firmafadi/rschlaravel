@@ -16,6 +16,7 @@ use Illuminate\Support\Facades\Route;
 Route::prefix('v1')->group(function () {
     Route::post('/register', 'AuthController@register');
     Route::post('/login', 'AuthController@login');
+    Route::get('/pbb/bills', 'TagihanPBBController@list');
     Route::middleware(['auth:api', 'throttle:200,1'])->group( function(){  
         Route::get('/user', 'AuthController@me');
     });
