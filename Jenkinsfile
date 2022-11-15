@@ -29,7 +29,7 @@ pipeline {
             }
             
             steps{
-                   sshagent (['ssh-centos7-f']){
+                   sshagent (['ssh-centos7']){
                         // ssh block
                        sh "ssh -o StrictHostKeyChecking=no root@143.198.219.155 $SSH_COMMAND"
 
