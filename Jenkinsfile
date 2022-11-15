@@ -29,7 +29,7 @@ pipeline {
             steps{
                    sshagent (['ssh-centos7-f']){
                         // ssh block
-                       sh 'cd /var/www/html/rschlaravel'
+                       sh ' echo "This is start $(pwd)"'
 
                     }
             }  
