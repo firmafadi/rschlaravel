@@ -27,7 +27,7 @@ pipeline {
             }
             
             steps{
-                   sshagent (['64308515-2447-4273-b8f8-b1c06cff7c83']){
+                   sshagent (['ssh-centos7']){
                         // ssh block
                        sh 'ssh -o StrictHostKeyChecking=no $STAGING_USER@$PRODUCTION_HOST_LOGISTIK "cd /data/app/pikobar-logistik-frontend && $SSH_COMMAND'
 
