@@ -27,7 +27,7 @@ pipeline {
             }
             
             steps{
-                   sshagent (['ssh-centos7']){
+                   sshagent (['ssh-c701']){
                         // ssh block
                        sh 'ssh -o StrictHostKeyChecking=no root@143.198.219.155 "cd /var/www/html/rschlaravel && $SSH_COMMAND"'
 
