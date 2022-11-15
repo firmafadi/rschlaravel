@@ -29,7 +29,7 @@ pipeline {
             steps{
                    sshagent (['ssh-centos7-f']){
                         // ssh block
-                       sh 'ssh -o StrictHostKeyChecking=no root@143.198.219.155 "cd /var/www/html/rschlaravel && $SSH_COMMAND"'
+                       sh 'ssh -o StrictHostKeyChecking=no root@143.198.219.155 "pwd && cd /var/www/html/rschlaravel && $SSH_COMMAND"'
 
                     }
             }  
