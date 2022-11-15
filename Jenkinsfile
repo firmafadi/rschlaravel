@@ -23,7 +23,7 @@ pipeline {
         stage('Deliver for production') {
             // make sure using branch master
             environment {
-                SSH_COMMAND = "ssh-agent bash -c 'ssh-add ~/.ssh/id_rsa; git pull origin master'"     
+                SSH_COMMAND = "ssh-agent bash -c 'git pull origin master'"     
             }
             
             steps{
