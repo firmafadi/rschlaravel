@@ -23,13 +23,15 @@ pipeline {
         stage('Deliver for production') {
             // make sure using branch master
             environment {
-                SSH_COMMAND = "ssh-agent bash -c 'git pull origin master'"     
+                SSH_COMMAND1 = "ssh-agent bash -c 'ssh-add ~/.ssh/id_rsa; git pull origin development'"  
+                SSH_COMMAND = "whoami && \
+                pwd "     
             }
             
             steps{
                    sshagent (['ssh-centos7-f']){
                         // ssh block
-                       sh ' echo "This is start $(pwd)"'
+                       sh "ssh -o StrictHostKeyChecking=no root@143.198.219.155 $SSH_COMMAND"
 
                     }
             }  
