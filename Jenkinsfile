@@ -36,7 +36,7 @@ pipeline {
     
     post { 
         always { 
-            slackSend channel: 'mobile-esign', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+            slackSend botUser: true, channel: 'mobile-esign', message: 'test', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         }
     }
 }
