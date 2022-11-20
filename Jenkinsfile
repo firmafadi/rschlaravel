@@ -29,7 +29,7 @@ pipeline {
             }
 
             steps{
-                sshagent(credentials:['ssh-centos7']){
+                sshagent(credentials:['jenkins-staging']){
                     sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "whoami"'
                 }
             }  
