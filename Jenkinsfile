@@ -3,25 +3,20 @@ pipeline {
     agent any
 
     environment {
-        appNameDevelopment= 'frontend-logistik-development'
-        appNameProduction = 'frontend-logistik-production'
-        STAGING_USER = "${env.STAGING_USER}"
-        STAGING_HOST_LOGISTIK = "${env.STAGING_HOST_LOGISTIK}"
-        PRODUCTION_HOST_LOGISTIK = "${env.PRODUCTION_HOST_LOGISTIK}"
-        BRANCH = "${env.BRANCH_STAGING}"    
-        
+   
         PROD_HOST = '143.198.219.155'
         PROD_USER = 'root'
-        APP_PATH = '/var/www/html/rschlaravel'
+        
+        STAGING_HOST = '143.198.219.155'
+        STAGING_USER = 'root'
+        
+        APP_PATH_STAGING = '/var/www/html/rschlaravel1'
+        APP_PATH_PROD = '/var/www/html/rschlaravel'
     }
 
     options {
         timeout(time: 1, unit: 'HOURS')
     }
-
-     triggers {
-                githubPush()
-     }
 
     stages{
         stage('Deliver for staging') {
@@ -36,7 +31,7 @@ pipeline {
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH && whoami"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && whoami"'
                 }
             }
         }
@@ -53,7 +48,7 @@ pipeline {
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin $BRANCH"'
                 }
             }
         }
@@ -61,7 +56,7 @@ pipeline {
     
     post { 
         always { 
-            slackSend channel: 'mobile-esign', message: 'test', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+            slackSend channel: 'mobile-esign', message: 'Deployed success', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         }
     }
 }
