@@ -59,7 +59,7 @@ pipeline{
       stage('login server'){
          steps{
             sshagent(credentials:['jenkins-staging']){
-               sh 'ssh  -o StrictHostKeyChecking=no root@143.198.219.155 "whoami"'
+               sh 'ssh  -o StrictHostKeyChecking=no root@143.198.219.155 "cd /var/www/html/rschlaravel && git pull origin master"'
              
           }
         echo "success lgoin"
