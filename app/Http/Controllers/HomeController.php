@@ -13,7 +13,7 @@ class HomeController extends Controller
         return [
             'app'    => config('app.name'),
             'server' => gethostname(),
-            'description' => 'Application is Running -- on test fir',
+            'description' => 'Application is Running -- on test firm',
             'error' => false
         ];
     }
