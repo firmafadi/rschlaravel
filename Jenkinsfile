@@ -10,7 +10,7 @@ pipeline {
         STAGING_HOST = '143.198.219.155'
         STAGING_USER = 'root'
         
-        APP_PATH_STAGING = '/var/www/html/rschlaravel'
+        APP_PATH_STAGING = '/var/www/html/rschlaravel1'
         APP_PATH_PROD = '/var/www/html/rschlaravel'
     }
 
