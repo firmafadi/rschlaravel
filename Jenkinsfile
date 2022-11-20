@@ -35,7 +35,7 @@ pipeline {
                 
 //             }  
             steps{
-                sshagent(credentials:['Login_Cloud_Server']){
+                sshagent(credentials:['jenkins-staging']){
                     sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "whoami"'
                 }
             }
