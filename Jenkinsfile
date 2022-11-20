@@ -29,7 +29,10 @@ pipeline {
             }
 
             steps{
-                   echo "test jenkins"
+                 sshagent (['ssh-centos7']){
+                        // ssh block
+                       sh 'ssh -o StrictHostKeyChecking=no "cd /var/www/html/rschlaravel && pwd"'
+                    }
             }  
         }
     }
