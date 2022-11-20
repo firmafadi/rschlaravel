@@ -25,7 +25,7 @@ pipeline {
 
             // make sure using branch master
             environment {
-                SSH_COMMAND = "git pull origin master'"     
+                SSH_COMMAND = "git pull origin master"     
             }
 
             steps{
