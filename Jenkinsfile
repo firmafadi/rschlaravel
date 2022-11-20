@@ -3,16 +3,15 @@ pipeline {
     agent any
 
     environment {
-        appNameDevelopment= 'frontend-logistik-development'
-        appNameProduction = 'frontend-logistik-production'
-        STAGING_USER = "${env.STAGING_USER}"
-        STAGING_HOST_LOGISTIK = "${env.STAGING_HOST_LOGISTIK}"
-        PRODUCTION_HOST_LOGISTIK = "${env.PRODUCTION_HOST_LOGISTIK}"
-        BRANCH = "${env.BRANCH_STAGING}"    
-        
+   
         PROD_HOST = '143.198.219.155'
         PROD_USER = 'root'
-        APP_PATH = '/var/www/html/rschlaravel'
+        
+        STAGING_HOST = '143.198.219.155'
+        STAGING_USER = 'root'
+        
+        APP_PATH_STAGING = '/var/www/html/rschlaravel'
+        APP_PATH_PROD = '/var/www/html/rschlaravel'
     }
 
     options {
