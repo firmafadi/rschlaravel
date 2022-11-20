@@ -28,11 +28,17 @@ pipeline {
                 SSH_COMMAND = "git pull origin master"     
             }
 
+//             steps{
+//                 sshagent(credentials:['jenkins-staging']){
+//                     sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "cd /var/www/html/rschlaravel && $SSH_COMMAND"'
+//                 }
+                
+//             }  
             steps{
-                sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "cd /var/www/html/rschlaravel && $SSH_COMMAND"'
+                sshagent(credentials:['Login_Cloud_Server']){
+                    sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "whoami"'
                 }
-            }  
+            }
         }
     }
     
