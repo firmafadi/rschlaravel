@@ -18,10 +18,6 @@ pipeline {
         timeout(time: 1, unit: 'HOURS')
     }
 
-     triggers {
-                githubPush()
-     }
-
     stages{
         stage('Deliver for staging') {
 
@@ -35,7 +31,7 @@ pipeline {
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH && whoami"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && whoami"'
                 }
             }
         }
@@ -52,7 +48,7 @@ pipeline {
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin $BRANCH"'
                 }
             }
         }
