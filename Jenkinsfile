@@ -30,7 +30,8 @@ pipeline {
 
             steps{
                 sshagent(credentials:['ssh-centos7']){
-                sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "whoami"'
+                    sh 'ssh  -o StrictHostKeyChecking=no  root@143.198.219.155 uptime "whoami"'
+                }
             }  
         }
     }
