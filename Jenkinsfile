@@ -31,7 +31,7 @@ pipeline {
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin $BRANCH"'
                 }
             }
         }
