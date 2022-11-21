@@ -51,7 +51,7 @@ pipeline {
             slackSend channel: 'mobile-esign', message: 'Deployed success', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         }
         failure {
-            slackSend failOnError:true message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
-        }
+                slackSend failOnError:true message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
+            }
     }
 }
