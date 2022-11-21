@@ -4,11 +4,11 @@ pipeline {
 
     environment {
    
-        PROD_HOST = '143.198.219.155'
-        PROD_USER = 'root'
+        PROD_HOST = $PROD_HOST
+        PROD_USER = $PROD_USER
         
-        STAGING_HOST = '143.198.219.155'
-        STAGING_USER = 'root'
+        STAGING_HOST = $STAGING_HOST
+        STAGING_USER = $STAGING_USER
         
         APP_PATH_STAGING = '/var/www/html/rschlaravel1'
         APP_PATH_PROD = '/var/www/html/rschlaravel'
