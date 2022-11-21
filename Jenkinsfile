@@ -24,14 +24,10 @@ pipeline {
             when {
                 branch 'staging'
             }
-
-            environment {
-                BRANCH = "staging"     
-            }
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin staging"'
                 }
             }
         }
@@ -41,22 +37,21 @@ pipeline {
             when {
                 branch 'master'
             }
-            // make sure using branch master
-            environment {
-                BRANCH = "master"     
-            }
-             
+
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin master"'
                 }
             }
         }
     }
     
     post { 
-        always { 
+        success { 
             slackSend channel: 'mobile-esign', message: 'Deployed success', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+        }
+        failure {
+            slackSend failOnError:true message:"Build failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}|Open>)"
         }
     }
 }
