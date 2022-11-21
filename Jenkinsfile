@@ -20,6 +20,8 @@ pipeline {
         //ENV Slack Notification
         SLACK_TOKEN = '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         SLACK_CHANNEL = 'mobile-esign'
+        
+        GIT_MESSAGE = "${bat(script: "git log --no-walk --format=format:%%s ${GIT_COMMIT}", returnStdout: true)}".readLines().drop(2).join(" ")
     }
 
     options {
@@ -56,10 +58,10 @@ pipeline {
     
     post { 
         success { 
-            slackSend channel: "$SLACK_CHANNEL", message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_COMMIT_MSG] - Deployed success", color:'good', tokenCredentialId: "$SLACK_TOKEN"
+            slackSend channel: "$SLACK_CHANNEL", message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_MESSAGE] - Deployed success", color:'good', tokenCredentialId: "$SLACK_TOKEN"
         }
         failure {
-            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_COMMIT_MSG] - Deploy failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
+            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_MESSAGE] - Deploy failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
         }
     }
 }
