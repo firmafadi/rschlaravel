@@ -4,10 +4,10 @@ pipeline {
 
     environment {
    
-        PROD_HOST = '$PROD_HOST'
-        PROD_USER = '$PROD_USER'
-        STAGING_HOST = '$STAGING_HOST'
-        STAGING_USER = '$STAGING_USER'
+        PROD_HOST = "${env.PROD_HOST}"
+        PROD_USER = "${env.PROD_USER}"
+        STAGING_HOST = "${env.STAGING_HOST}"
+        STAGING_USER = "${env.STAGING_USER}"
         APP_PATH_STAGING = '/var/www/html/rschlaravel1'
         APP_PATH_PROD = '/var/www/html/rschlaravel'
     }
