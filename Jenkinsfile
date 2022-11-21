@@ -27,7 +27,7 @@ pipeline {
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin staging1"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin staging"'
                 }
             }
         }
@@ -51,7 +51,7 @@ pipeline {
             slackSend channel: "$SLACK_CHANNEL", message: "[$APP_NAME] [$GIT_BRANCH] - Deployed success", color:'good', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         }
         failure {
-            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] - Deploy failed  - ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}/consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
+            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] -Deploy failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
         }
     }
 }
