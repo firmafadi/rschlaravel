@@ -3,15 +3,15 @@ pipeline {
     agent any
 
     environment {
-   
-        PROD_HOST = '143.198.219.155'
-        PROD_USER = 'root'
-        
-        STAGING_HOST = '143.198.219.155'
-        STAGING_USER = 'root'
-        
+        APP_NAME = 'rschlaravel'
+        PROD_HOST = "${env.PROD_HOST}"
+        PROD_USER = "${env.PROD_USER}"
+        STAGING_HOST = "${env.STAGING_HOST}"
+        STAGING_USER = "${env.STAGING_USER}"
         APP_PATH_STAGING = '/var/www/html/rschlaravel1'
         APP_PATH_PROD = '/var/www/html/rschlaravel'
+        SLACK_TOKEN = '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+        SLACK_CHANNEL = 'mobile-esign'
     }
 
     options {
@@ -24,14 +24,10 @@ pipeline {
             when {
                 branch 'staging'
             }
-
-            environment {
-                BRANCH = "staging"     
-            }
              
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_STAGING && git pull origin staging"'
                 }
             }
         }
@@ -41,22 +37,21 @@ pipeline {
             when {
                 branch 'master'
             }
-            // make sure using branch master
-            environment {
-                BRANCH = "master"     
-            }
-             
+
             steps{
                 sshagent(credentials:['jenkins-staging']){
-                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin $BRANCH"'
+                    sh 'ssh  -o StrictHostKeyChecking=no $PROD_USER@$PROD_HOST "cd $APP_PATH_PROD && git pull origin master"'
                 }
             }
         }
     }
     
     post { 
-        always { 
-            slackSend channel: 'mobile-esign', message: 'Deployed success', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+        success { 
+            slackSend channel: "$SLACK_CHANNEL", message: "[$APP_NAME] [$GIT_BRANCH] - Deployed success", color:'good', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+        }
+        failure {
+            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] -Deploy failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
         }
     }
 }
