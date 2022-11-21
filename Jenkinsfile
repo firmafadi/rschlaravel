@@ -48,10 +48,10 @@ pipeline {
     
     post { 
         success { 
-            slackSend channel: 'mobile-esign', message: 'Deployed success', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+            slackSend channel: 'mobile-esign', message: 'Deployed success', color:good, tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         }
         failure {
-            slackSend channel: 'mobile-esign', message: 'Deployed Failure - ${error.message}', tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
+            slackSend channel: 'mobile-esign', message: 'Deployed Failure - ${error.message}', color:danger, tokenCredentialId: '0516f92d-2c00-40b0-ad6b-5e25d2eceeea'
         }
     }
 }
