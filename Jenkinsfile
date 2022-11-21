@@ -56,10 +56,10 @@ pipeline {
     
     post { 
         success { 
-            slackSend channel: "$SLACK_CHANNEL", message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_COMMIT] - Deployed success", color:'good', tokenCredentialId: "$SLACK_TOKEN"
+            slackSend channel: "$SLACK_CHANNEL", message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_COMMIT_MSG] - Deployed success", color:'good', tokenCredentialId: "$SLACK_TOKEN"
         }
         failure {
-            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_COMMIT] - Deploy failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
+            slackSend channel: "$SLACK_CHANNEL", failOnError: true, message: "[$APP_NAME] [$GIT_BRANCH] [$GIT_COMMIT_MSG] - Deploy failed ${env.JOB_NAME} ${env.BUILD_NUMBER} (<${env.BUILD_URL}consoleText|Open Log>)", color:'danger', tokenCredentialId: "$SLACK_TOKEN"
         }
     }
 }
